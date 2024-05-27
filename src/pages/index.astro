@@ -1,7 +1,27 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
 ---
 
 <Layout>
-  <main><h1 class="text-3xl font-bold underline">Hello world!</h1></main>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <Nav />
+  <main id="main" class="flex-grow flex items-center justify-center">
+    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  </main>
 </Layout>
+<style>
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #fff;
+    color: #007bff;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+</style>
