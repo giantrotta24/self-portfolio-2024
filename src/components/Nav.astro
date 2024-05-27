@@ -14,23 +14,25 @@
 </nav>
 
 <script>
+  const htmlDocument = document.querySelector("html") as HTMLElement;
   const darkModeToggle = document.getElementById(
     "dark-mode-toggle"
   ) as HTMLButtonElement;
-
   const darkModeToggleText = document.getElementById(
     "dark-mode-toggle-text"
   ) as HTMLSpanElement;
 
-  const htmlDocument = document.querySelector("html") as HTMLElement;
+  console.log(htmlDocument.classList);
 
   darkModeToggle.addEventListener("click", () => {
     if (htmlDocument.classList.contains("dark")) {
       darkModeToggleText.innerText = "🌙";
       darkModeToggle.setAttribute("aria-label", "Activate dark mode");
+      window.localStorage.setItem("theme", "light");
     } else {
       darkModeToggleText.innerText = "🌞";
       darkModeToggle.setAttribute("aria-label", "Activate light mode");
+      window.localStorage.setItem("theme", "dark");
     }
 
     htmlDocument.classList.toggle("dark");
