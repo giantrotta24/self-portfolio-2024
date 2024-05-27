@@ -1,0 +1,27 @@
+<footer class="bg-white shadow p-4 flex justify-between items-center">
+  <p class="text-gray-700">
+    &copy; Gianfranco Trotta <span id="footer-year"></span>
+  </p>
+  <p class="text-gray-700">
+    Built with <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://astro.build"
+      class="text-blue-500 hover:underline">{Astro.generator}</a
+    >
+  </p>
+</footer>
+<script>
+  const updateFooterYear = () => {
+    const currentYear = new Date().getFullYear();
+    const footerYearElement = document.getElementById(
+      "footer-year"
+    ) as HTMLSpanElement;
+    if (footerYearElement) {
+      footerYearElement.textContent = currentYear.toString();
+    }
+  };
+
+  // Call the function to set the current year
+  updateFooterYear();
+</script>
