@@ -22,8 +22,6 @@
     "dark-mode-toggle-text"
   ) as HTMLSpanElement;
 
-  console.log(htmlDocument.classList);
-
   darkModeToggle.addEventListener("click", () => {
     if (htmlDocument.classList.contains("dark")) {
       darkModeToggleText.innerText = "🌙";
