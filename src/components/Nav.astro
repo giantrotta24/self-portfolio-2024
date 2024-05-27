@@ -1,7 +1,38 @@
-<nav class="bg-white shadow p-4 flex justify-between items-center">
-  <a href="/" class="text-xl font-bold text-blue-500">GT</a>
+<nav class="shadow p-4 flex justify-between items-center">
+  <a href="/" class="text-xl text-blue-500">GT</a>
+
   <div class="space-x-4">
-    <a href="/blog" class="text-gray-700 hover:text-blue-500">Blog</a>
-    <a href="/dev-stuff" class="text-gray-700 hover:text-blue-500">Dev-Stuff</a>
+    <button
+      type="button"
+      id="dark-mode-toggle"
+      class="transform transition duration-100 hover:text-blue-500 hover:scale-125"
+      ><span id="dark-mode-toggle-text"></span></button
+    >
+    <a href="/blog" class="hover:text-blue-500">Blog</a>
+    <a href="/dev-stuff" class="hover:text-blue-500">Dev-Stuff</a>
   </div>
 </nav>
+
+<script>
+  const darkModeToggle = document.getElementById(
+    "dark-mode-toggle"
+  ) as HTMLButtonElement;
+
+  const darkModeToggleText = document.getElementById(
+    "dark-mode-toggle-text"
+  ) as HTMLSpanElement;
+
+  const htmlDocument = document.querySelector("html") as HTMLElement;
+
+  darkModeToggle.addEventListener("click", () => {
+    if (htmlDocument.classList.contains("dark")) {
+      darkModeToggleText.innerText = "🌙";
+      darkModeToggle.setAttribute("aria-label", "Activate dark mode");
+    } else {
+      darkModeToggleText.innerText = "🌞";
+      darkModeToggle.setAttribute("aria-label", "Activate light mode");
+    }
+
+    htmlDocument.classList.toggle("dark");
+  });
+</script>

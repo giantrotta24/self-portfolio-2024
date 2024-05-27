@@ -1,3 +1,8 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,7 +16,49 @@
     <meta name="generator" content={Astro.generator} />
     <title>giantrotta.dev</title>
   </head>
-  <body class="bg-gray-100 h-screen flex flex-col">
+  <body
+    class="bg-white dark:bg-zinc-950 text-gray-700 dark:text-slate-50 h-screen flex flex-col"
+  >
+    <a
+      href="#main"
+      class="bg-[#f7fafc] dark:bg-[#131313] text-blue-500 absolute -top-10 left-0 z-50 focus:top-0 skip-link"
+      >Skip to main content</a
+    >
+    <Nav />
     <slot />
+    <Footer />
   </body>
 </html>
+
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  })();
+
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  const darkModeToggleText = document.getElementById("dark-mode-toggle-text");
+
+  if (theme === "light") {
+    document.querySelector("html").classList.remove("dark");
+    darkModeToggleText.innerText = "🌙";
+    darkModeToggle.setAttribute("aria-label", "Activate dark mode");
+  } else {
+    document.querySelector("html").classList.add("dark");
+    darkModeToggleText.innerText = "🌞";
+    darkModeToggle.setAttribute("aria-label", "Activate light mode");
+  }
+  window.localStorage.setItem("theme", theme);
+</script>
+
+<style>
+  .skip-link {
+    padding: 8px;
+    transition: top 0.3s;
+  }
+</style>
