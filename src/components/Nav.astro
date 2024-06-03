@@ -1,16 +1,18 @@
 <nav class="shadow p-4 flex justify-between items-center">
-  <a href="/" class="text-xl text-blue-500">GT</a>
+  <a href="/" class="text-xl text-blue-600">GT</a>
 
   <div class="space-x-4">
     <button
       transition:persist
       type="button"
       id="dark-mode-toggle"
-      class="transform transition duration-100 hover:text-blue-500 hover:scale-125"
+      class="transform transition duration-100 hover:text-blue-600 hover:scale-125"
       ><span id="dark-mode-toggle-text"></span></button
     >
-    <a href="/blog" class="hover:text-blue-500">Blog</a>
-    <a href="/dev-stuff" class="hover:text-blue-500">Dev-Stuff</a>
+    <a href="/blog" class="hover:text-blue-600 hover:underline">Blog</a>
+    <a href="/dev-stuff" class="hover:text-blue-600 hover:underline"
+      >Dev-Stuff</a
+    >
   </div>
 </nav>
 
@@ -25,7 +27,7 @@
 
   darkModeToggle.addEventListener("click", () => {
     if (htmlDocument.classList.contains("dark")) {
-      darkModeToggleText.innerText = "🌙";
+      darkModeToggleText.innerText = "🌛";
       darkModeToggle.setAttribute("aria-label", "Activate dark mode");
       window.localStorage.setItem("theme", "light");
     } else {

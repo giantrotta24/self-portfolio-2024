@@ -21,67 +21,66 @@ import Footer from "../components/Footer.astro";
     <title>giantrotta.dev</title>
   </head>
   <body
-    class="bg-white dark:bg-zinc-950 text-gray-700 dark:text-slate-50 h-screen flex flex-col"
+    class="bg-slate-50 dark:bg-slate-950 text-stone-950 dark:text-stone-50 h-screen flex flex-col"
   >
     <a
       href="#main"
-      class="bg-[#f7fafc] dark:bg-[#131313] text-blue-500 absolute -top-10 left-0 z-50 focus:top-0 skip-link"
+      class="bg-slate-50 dark:bg-slate-950 text-blue-600 absolute -top-10 left-0 z-50 focus:top-0 skip-link"
       >Skip to main content</a
     >
     <Nav />
     <slot />
     <Footer />
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      const darkModeToggle = document.getElementById("dark-mode-toggle");
+      const darkModeToggleText = document.getElementById(
+        "dark-mode-toggle-text"
+      );
+
+      if (theme === "light") {
+        document.querySelector("html").classList.remove("dark");
+        darkModeToggleText.innerText = "🌛";
+        darkModeToggle.setAttribute("aria-label", "Activate dark mode");
+      } else {
+        document.querySelector("html").classList.add("dark");
+        darkModeToggleText.innerText = "🌞";
+        darkModeToggle.setAttribute("aria-label", "Activate light mode");
+      }
+      window.localStorage.setItem("theme", theme);
+
+      function persistTheme(document) {
+        let theme = localStorage.getItem("theme");
+        if (theme === "dark") {
+          document.querySelector("html").classList.add("dark");
+        } else {
+          document.querySelector("html").classList.remove("dark");
+        }
+      }
+
+      document.addEventListener("astro:before-swap", (ev) => {
+        // Pass the incoming document to set the theme on it
+        persistTheme(ev.newDocument);
+      });
+    </script>
+
+    <style>
+      .skip-link {
+        padding: 8px;
+        transition: top 0.3s;
+      }
+    </style>
   </body>
 </html>
-
-<script is:inline>
-  const theme = (() => {
-    if (
-      typeof localStorage !== "undefined" &&
-      localStorage.getItem("theme")
-    ) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
-
-  const darkModeToggle = document.getElementById("dark-mode-toggle");
-  const darkModeToggleText = document.getElementById(
-    "dark-mode-toggle-text"
-  );
-
-  if (theme === "light") {
-    document.querySelector("html").classList.remove("dark");
-    darkModeToggleText.innerText = "🌙";
-    darkModeToggle.setAttribute("aria-label", "Activate dark mode");
-  } else {
-    document.querySelector("html").classList.add("dark");
-    darkModeToggleText.innerText = "🌞";
-    darkModeToggle.setAttribute("aria-label", "Activate light mode");
-  }
-  window.localStorage.setItem("theme", theme);
-
-  function persistTheme(document) {
-    let theme = localStorage.getItem("theme");
-    if (theme === "dark") {
-      document.querySelector("html").classList.add("dark");
-    } else {
-      document.querySelector("html").classList.remove("dark");
-    }
-  }
-
-  document.addEventListener("astro:before-swap", (ev) => {
-    // Pass the incoming document to set the theme on it
-    persistTheme(ev.newDocument);
-  });
-</script>
-
-<style>
-  .skip-link {
-    padding: 8px;
-    transition: top 0.3s;
-  }
-</style>
